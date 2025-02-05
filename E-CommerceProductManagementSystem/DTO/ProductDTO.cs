@@ -1,7 +1,4 @@
-﻿using E_CommerceProductManagementSystem.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace E_CommerceProductManagementSystem.DTO
+﻿namespace E_CommerceProductManagementSystem.DTO
 {
     public class ProductDTO
     {
@@ -9,9 +6,9 @@ namespace E_CommerceProductManagementSystem.DTO
         public string? Name { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
-        public int Stock { get; set; }     
+        public int Stock { get; set; }  
 
-        public Category? Category { get; set; }
+        public string? CategoryName { get; set; }
 
     }
 }
