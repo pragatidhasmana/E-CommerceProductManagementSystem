@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using E_CommerceProductManagementSystem.DTO;
+using E_CommerceProductManagementSystem.Services;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +10,50 @@ namespace E_CommerceProductManagementSystem.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        // GET: api/<CategoryController>
+        private readonly ICategoryService _categoryService;
+
+        public CategoryController(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAllCategories()
         {
-            return new string[] { "value1", "value2" };
+            var categories = await _categoryService.GetAllCategories();
+            return Ok(categories);
         }
 
-        // GET api/<CategoryController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> GetCategoryById(int id)
         {
-            return "value";
+            var category = await _categoryService.GetCategoryById(id);
+            if (category == null) return NotFound();
+            return Ok(category);
         }
 
-        // POST api/<CategoryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> AddCategory([FromBody] CategoryDTO categoryDTO)
         {
+            var createdCategory = await _categoryService.AddCategory(categoryDTO);
+            return CreatedAtAction(nameof(GetCategoryById), new { id = createdCategory.Id }, createdCategory);
         }
 
-        // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryDTO categoryDTO)
         {
+            var updatedCategory = await _categoryService.UpdateCategory(id, categoryDTO);
+            if (updatedCategory == null) return NotFound();
+            return Ok(updatedCategory);
         }
 
-        // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
+            var result = await _categoryService.DeleteCategory(id);
+            if (!result) return NotFound();
+            return NoContent();
         }
     }
 }
+    

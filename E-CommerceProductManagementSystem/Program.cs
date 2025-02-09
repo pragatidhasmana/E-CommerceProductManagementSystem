@@ -1,5 +1,7 @@
 using System.Text;
 using E_CommerceProductManagementSystem.Data;
+using E_CommerceProductManagementSystem.Repositories;
+using E_CommerceProductManagementSystem.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 var Configuration = builder.Configuration;
 
 // Add services to the container.
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
