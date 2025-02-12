@@ -1,19 +1,39 @@
-import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../services/AuthService";
 
 const Navbar = () => {
-  return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Admin Dashboard
-        </Typography>
-        <Button color="inherit" component={Link} to="/">Dashboard</Button>
-        <Button color="inherit" component={Link} to="/products">Products</Button>
-        <Button color="inherit" component={Link} to="/inventory">Inventory</Button>
-      </Toolbar>
-    </AppBar>
-  );
-};
+    const isAuthenticated = AuthService.isAuthenticated();
+    const navigate = useNavigate();
+
+    return (
+        <nav className='navbar navbar-strong bg-light px-3'>
+            <a className='navbar-brand' href='/'>React Auth</a>
+            {
+                localStorage.getItem("Role")==="Admin" &&
+                (
+                    <>
+                    <a href="./product">Products</a>
+                    <a href="./category" >Category</a>
+                    </>
+                )
+            }
+             
+                {localStorage.getItem("Role") === "User" &&
+                (
+                    <>
+                    
+                    <a href="./view-products">View Products</a> 
+                    </>
+                )}
+            
+            {isAuthenticated && (
+                <><span> {localStorage.getItem("username")} ({localStorage.getItem("Role")})</span><button
+                    className='btn btn-danger'
+                    onClick={() => { AuthService.logout(); navigate("/login", { replace: true }); } }>Logout</button></>
+            )}
+        </nav>
+    )
+
+}
 
 export default Navbar;
