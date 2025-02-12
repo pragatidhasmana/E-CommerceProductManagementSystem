@@ -1,32 +1,49 @@
-﻿using E_CommerceProductManagementSystem.Models;
+﻿using E_CommerceProductManagementSystem.Data;
+using E_CommerceProductManagementSystem.Models;
+using E_CommerceProductManagementSystem.Repositories;
+using Microsoft.EntityFrameworkCore;
 
-namespace E_CommerceProductManagementSystem.Repositories
+public class ProductRepository : IProductRepository
 {
-    public class ProductRepository : IProductRepository
+    private readonly AppDbContext _context;
+
+    public ProductRepository(AppDbContext context)
     {
-        public Task<Product> AddProduct(Product product)
-        {
-            throw new NotImplementedException();
-        }
+        _context = context;
+    }
 
-        public Task<bool> DeleteProduct(int id)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<IEnumerable<Product>> GetAllProducts()
+    {
+        return await _context.Products.Include(p => p.Category).ToListAsync();
+    }
 
-        public Task<IEnumerable<Product>> GetAllProducts()
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<Product> GetProductById(int id)
+    {
+        return await _context.Products.Include(p => p.Category)
+            .FirstOrDefaultAsync(p => p.ProductId == id);
+    }
 
-        public Task<Product> GetProductById(int id)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<Product> AddProduct(Product product)
+    {
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync();
+        return product;
+    }
 
-        public Task<Product> UpdateProduct(Product product)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<Product> UpdateProduct(Product product)
+    {
+        _context.Products.Update(product);
+        await _context.SaveChangesAsync();
+        return product;
+    }
+
+    public async Task<bool> DeleteProduct(int id)
+    {
+        var product = await _context.Products.FindAsync(id);
+        if (product == null) return false;
+
+        _context.Products.Remove(product);
+        await _context.SaveChangesAsync();
+        return true;
     }
 }
