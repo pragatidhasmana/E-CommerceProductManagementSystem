@@ -1,6 +1,8 @@
 ﻿using E_CommerceProductManagementSystem.DTO;
 using E_CommerceProductManagementSystem.Services;
+using E_CommerceProductManagementSystem.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting.Internal;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -29,15 +31,37 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddProduct([FromBody] ProductDTO productDTO)
+    public async Task<IActionResult> AddProduct( [FromForm] ProductDTO productDTO)
     {
-        var createdProduct = await _productService.AddProduct(productDTO);
-        return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.ProductId }, createdProduct);
+        if (productDTO.file != null)
+        {
+            if (!string.IsNullOrEmpty(productDTO.ImgURL))
+            {
+                //delete old image
+                new ImageUpload().DeleteFile(productDTO.ImgURL);
+            }
+            productDTO.ImgURL = new ImageUpload().Upload(productDTO.file);
+            var createdProduct = await _productService.AddProduct(productDTO);
+            return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.ProductId }, createdProduct);
+        }
+        return BadRequest();
+        
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductDTO productDTO)
+    public async Task<IActionResult> UpdateProduct(int id, [FromForm] ProductDTO productDTO)
     {
+        if(productDTO.file != null)
+        {
+            var productFromDB = await _productService.GetProductById(id);
+            if (!string.IsNullOrEmpty(productFromDB.ImgURL))
+            {
+                //delete old image
+                new ImageUpload().DeleteFile(productFromDB.ImgURL);
+            }
+            productDTO.ImgURL = new ImageUpload().Upload(productDTO.file);
+        }       
+
         var updatedProduct = await _productService.UpdateProduct(id, productDTO);
         if (updatedProduct == null) return NotFound();
         return Ok(updatedProduct);
@@ -46,6 +70,13 @@ public class ProductsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProduct(int id)
     {
+        var productFromDB = await _productService.GetProductById(id);
+        if (!string.IsNullOrEmpty(productFromDB.ImgURL))
+        {
+            //delete old image
+            new ImageUpload().DeleteFile(productFromDB.ImgURL);
+        }
+
         var result = await _productService.DeleteProduct(id);
         if (!result) return NotFound();
         return NoContent();

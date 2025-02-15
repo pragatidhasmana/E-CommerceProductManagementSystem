@@ -22,6 +22,7 @@ public class ProductService : IProductService
             Description = p.Description,
             Price = p.Price,
             Stock = p.Stock,
+            ImgURL = p.ImgURL,
             CategoryId = p.CategoryId,
             CategoryName = p.Category?.Name
         }).ToList();
@@ -39,6 +40,7 @@ public class ProductService : IProductService
             Description = product.Description,
             Price = product.Price,
             Stock = product.Stock,
+            ImgURL= product.ImgURL,
             CategoryId = product.CategoryId,
             CategoryName = product.Category?.Name
         };
@@ -51,6 +53,7 @@ public class ProductService : IProductService
             Name = productDTO.Name,
             Description = productDTO.Description,
             Price = productDTO.Price,
+            ImgURL =    productDTO.ImgURL,
             Stock = productDTO.Stock,
             CategoryId = productDTO.CategoryId
         };
@@ -63,6 +66,7 @@ public class ProductService : IProductService
             Name = createdProduct.Name,
             Description = createdProduct.Description,
             Price = createdProduct.Price,
+            ImgURL = createdProduct.ImgURL,
             Stock = createdProduct.Stock    ,
             CategoryId = createdProduct.CategoryId
         };
@@ -79,6 +83,11 @@ public class ProductService : IProductService
         product.Stock = productDTO.Stock;
         product.CategoryId = productDTO.CategoryId;
 
+        if(!string.IsNullOrEmpty(productDTO.ImgURL))
+        {
+            product.ImgURL = productDTO.ImgURL;
+        }       
+
         var updatedProduct = await _productRepository.UpdateProduct(product);
 
         return new ProductDTO
@@ -88,6 +97,7 @@ public class ProductService : IProductService
             Description = updatedProduct.Description,
             Price = updatedProduct.Price,
             Stock = updatedProduct.Stock    ,
+            ImgURL= updatedProduct.ImgURL,
             CategoryId = updatedProduct.CategoryId
         };
     }

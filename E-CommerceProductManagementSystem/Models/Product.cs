@@ -12,6 +12,8 @@ namespace E_CommerceProductManagementSystem.Models
         public decimal Price { get; set; }
         public int Stock {  get; set; }
 
+        public string? ImgURL { get; set; }
+
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
 
