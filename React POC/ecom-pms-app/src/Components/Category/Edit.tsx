@@ -100,7 +100,6 @@ const Edit = () => {
                 <div className="col-6 col-md-3">
                   <Link
                     to='/category/index'
-                    asp-action="Index"
                     className="btn btn-outline-primary form-control"
                   >
                     Back To List

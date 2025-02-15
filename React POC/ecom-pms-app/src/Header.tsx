@@ -20,7 +20,7 @@ const Header = () => {
           <div className="navbar-collapse collapse d-sm-inline-flex justify-content-between">
             <ul className="navbar-nav flex-grow-1">
               <li className="nav-item">
-                <a className="nav-link">Home</a>
+                <Link to='/' className="nav-link">Home</Link>
               </li>
               {/* <li className="nav-item">
                   <a
@@ -46,7 +46,7 @@ const Header = () => {
                     <Link to='/category/index' className="dropdown-item">Category</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="dropdown-item">Product</a>
+                  <Link to='/product/index' className="dropdown-item">Product</Link>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />

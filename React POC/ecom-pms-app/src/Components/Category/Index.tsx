@@ -51,7 +51,7 @@ const Index = () => {
                   <tr key={Categories.id}>
                     <td>{Categories.id}</td>
                     <td>{Categories.name}</td>
-                    <td>
+                    <td className="text-center">
                       <Link to={`/category/edit/${Categories.id}` } className="btn btn-sm btn-info me-2"><i className="bi bi-pencil-square"></i> Edit</Link>
                       <Link to={`/category/delete/${Categories.id}` } className="btn btn-sm btn-danger me-2" ><i className="bi bi-trash"></i> Delete</Link>
                     </td>

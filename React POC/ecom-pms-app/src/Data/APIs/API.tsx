@@ -24,6 +24,18 @@ export const  updateCategoryById = (id:any,categoryData : Category) =>{
     return api.put(`/Category/${id}`,categoryData);
 }
 
+export const  getProduct = () =>{
+    return api.get("/Products");
+}
+
+export const  getProductById = (id:any) =>{
+    return api.get(`/Products/${id}`);
+}
+
+export const  deleteProduct = (id: any) => {
+    return api.delete(`/Products/${id}`);
+}
+
 
 
 

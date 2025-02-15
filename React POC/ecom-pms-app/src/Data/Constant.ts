@@ -1,0 +1,1 @@
+export const imageFileServer = "http://localhost:3000"
