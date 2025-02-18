@@ -11,6 +11,7 @@ import ProductEdit from "./Components/Product/ProductEdit";
 import ProductDelete from "./Components/Product/ProductDelete";
 import DashboardIndex from "./Components/Dashboard/DashboardIndex";
 import ProductIndex from "./Components/Product/ProductIndex";
+import DashboardDetail from "./Components/Dashboard/DashboardDetail";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/product/delete/:id"  element={<ProductDelete />} />
           <Route path="/product/index"  element={<ProductIndex />} />
           <Route path="/"  element={<DashboardIndex />} />
+          <Route path="/details/:id"  element={<DashboardDetail />} />
         </Routes>
       </Router>;
     </>

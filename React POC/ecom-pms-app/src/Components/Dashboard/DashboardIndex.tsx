@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Product } from "../../Data/Models/Product";
 import { getProduct } from "../../Data/APIs/API";
 import { imageFileServer } from "../../Data/Constant";
+import { Link } from "react-router-dom";
 
 const DashboardIndex = () => {
   const [product, setProduct] = useState<Product[]>([]);
@@ -19,8 +20,8 @@ const DashboardIndex = () => {
   return (
     <>
       <div className="row row-cols-4 row-cols-md-4 mb-5 mx-auto col-10">
-        {product.map((currElement) => (
-          <div className="col mb-4">
+        {product.map((currElement) => ( 
+          <div className="col mb-4" key={currElement.productId}>
             <div className="card h-100 border-0 p-3 shadow border-top border-5 rounded">
               <img
                 src={`${imageFileServer}${currElement?.imgURL}`}
@@ -56,9 +57,9 @@ const DashboardIndex = () => {
                   </p>
                 </div>
               </div>
-              <a className="btn btn-primary bg-gradient border-0 form-control">
+              <Link to={`/details/${currElement.productId}`} className="btn btn-primary bg-gradient border-0 form-control">
                 Details
-              </a>
+              </Link>
             </div>
           </div>
         ))}
