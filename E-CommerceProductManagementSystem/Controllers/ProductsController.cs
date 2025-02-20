@@ -1,8 +1,8 @@
 ﻿using E_CommerceProductManagementSystem.DTO;
 using E_CommerceProductManagementSystem.Services;
 using E_CommerceProductManagementSystem.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting.Internal;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -16,6 +16,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAllProducts()
     {
         var products = await _productService.GetAllProducts();
@@ -23,6 +24,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<IActionResult> GetProductById(int id)
     {
         var product = await _productService.GetProductById(id);
@@ -31,6 +33,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddProduct( [FromForm] ProductDTO productDTO)
     {
         if (productDTO.file != null)
@@ -49,6 +52,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateProduct(int id, [FromForm] ProductDTO productDTO)
     {
         if(productDTO.file != null)
@@ -68,6 +72,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteProduct(int id)
     {
         var productFromDB = await _productService.GetProductById(id);
