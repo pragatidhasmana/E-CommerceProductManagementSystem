@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 public class ProductRepository : IProductRepository
 {
-    private readonly AppDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public ProductRepository(AppDbContext context)
+    public ProductRepository(ApplicationDbContext context)
     {
         _context = context;
     }

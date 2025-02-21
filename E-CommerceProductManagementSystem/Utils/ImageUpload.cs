@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-
-namespace E_CommerceProductManagementSystem.Utils
+﻿namespace E_CommerceProductManagementSystem.Utils
 {
     public class ImageUpload
     {

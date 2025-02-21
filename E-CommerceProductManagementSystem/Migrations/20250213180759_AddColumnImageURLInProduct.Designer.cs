@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_CommerceProductManagementSystem.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250213180759_AddColumnImageURLInProduct")]
     partial class AddColumnImageURLInProduct
     {
