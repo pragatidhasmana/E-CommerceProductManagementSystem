@@ -8,8 +8,12 @@ namespace E_CommerceProductManagementSystem.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(10)]
+        public string? UserName { get; set; }
+
+        [Required]
         [MaxLength(100)]
-        public string? Username { get; set; }
+        public string? Name { get; set; }
 
         [Required]
         [MaxLength(255)]
@@ -18,6 +22,7 @@ namespace E_CommerceProductManagementSystem.Models
         [Required]
         [MaxLength(50)]
         public string? Role { get; set; }
+     
 
     }
     

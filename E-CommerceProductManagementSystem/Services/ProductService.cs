@@ -106,4 +106,26 @@ public class ProductService : IProductService
     {
         return await _productRepository.DeleteProduct(id);
     }
+
+    public async Task<IEnumerable<ProductDTO>> GetProductByCategoryId(int categoryId)
+    {
+        var products = await _productRepository.GetAllProducts();
+        var categoryProduct = products.Where(c=>c.CategoryId == categoryId).ToList(); 
+        if(categoryProduct.Any())
+        {
+            return categoryProduct.Select(p => new ProductDTO
+            {
+                ProductId = p.ProductId,
+                Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                Stock = p.Stock,
+                ImgURL = p.ImgURL,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category?.Name
+            }).ToList();
+        }
+        return null;
+       
+    }
 }

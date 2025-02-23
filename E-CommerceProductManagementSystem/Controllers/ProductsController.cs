@@ -16,7 +16,6 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetAllProducts()
     {
         var products = await _productService.GetAllProducts();

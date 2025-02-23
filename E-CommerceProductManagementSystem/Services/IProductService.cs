@@ -9,6 +9,7 @@ namespace E_CommerceProductManagementSystem.Services
         Task<ProductDTO> AddProduct(ProductDTO productDTO);
         Task<ProductDTO> UpdateProduct(int id, ProductDTO productDTO);
         Task<bool> DeleteProduct(int id);
+        Task<IEnumerable<ProductDTO>> GetProductByCategoryId(int categoryId);
 
     }
 }

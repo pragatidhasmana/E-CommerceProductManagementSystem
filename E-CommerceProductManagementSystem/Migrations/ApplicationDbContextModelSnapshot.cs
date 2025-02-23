@@ -3,7 +3,6 @@ using E_CommerceProductManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,11 +10,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_CommerceProductManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250211134331_Initial")]
-    partial class Initial
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +36,28 @@ namespace E_CommerceProductManagementSystem.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            Name = "Books"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            Name = "Clothing"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            Name = "Kitchenware"
+                        });
                 });
 
             modelBuilder.Entity("E_CommerceProductManagementSystem.Models.Product", b =>
@@ -55,6 +74,9 @@ namespace E_CommerceProductManagementSystem.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImgURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -69,6 +91,44 @@ namespace E_CommerceProductManagementSystem.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            CategoryId = 1,
+                            Description = "Laptop",
+                            Name = "Laptop",
+                            Price = 999.99m,
+                            Stock = 25
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            CategoryId = 1,
+                            Description = "Mobile phone",
+                            Name = "Smartphone",
+                            Price = 499.99m,
+                            Stock = 7
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            CategoryId = 2,
+                            Description = "Novel Fiction",
+                            Name = "Novel",
+                            Price = 19.99m,
+                            Stock = 15
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            CategoryId = 3,
+                            Description = "T-Shirts",
+                            Name = "T-Shirts",
+                            Price = 200m,
+                            Stock = 45
+                        });
                 });
 
             modelBuilder.Entity("E_CommerceProductManagementSystem.Models.User", b =>
@@ -78,6 +138,11 @@ namespace E_CommerceProductManagementSystem.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -89,14 +154,32 @@ namespace E_CommerceProductManagementSystem.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin User",
+                            Password = "password@123",
+                            Role = "Admin",
+                            UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Customer",
+                            Password = "password@123",
+                            Role = "User",
+                            UserName = "User"
+                        });
                 });
 
             modelBuilder.Entity("E_CommerceProductManagementSystem.Models.Product", b =>

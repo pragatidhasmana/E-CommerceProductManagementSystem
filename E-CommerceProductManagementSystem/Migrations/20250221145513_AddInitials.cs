@@ -2,10 +2,12 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace E_CommerceProductManagementSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class AddInitials : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +50,7 @@ namespace E_CommerceProductManagementSystem.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
+                    ImgURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -59,6 +62,37 @@ namespace E_CommerceProductManagementSystem.Migrations
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Electronics" },
+                    { 2, "Books" },
+                    { 3, "Clothing" },
+                    { 4, "Kitchenware" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Password", "Role", "Username" },
+                values: new object[,]
+                {
+                    { 1, "password@123", "Admin", "Admin" },
+                    { 2, "password@123", "User", "User" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "CategoryId", "Description", "ImgURL", "Name", "Price", "Stock" },
+                values: new object[,]
+                {
+                    { 1, 1, "Laptop", null, "Laptop", 999.99m, 25 },
+                    { 2, 1, "Mobile phone", null, "Smartphone", 499.99m, 7 },
+                    { 3, 2, "Novel Fiction", null, "Novel", 19.99m, 15 },
+                    { 4, 3, "T-Shirts", null, "T-Shirts", 200m, 45 }
                 });
 
             migrationBuilder.CreateIndex(

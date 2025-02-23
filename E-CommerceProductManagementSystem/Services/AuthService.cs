@@ -19,13 +19,60 @@ namespace E_CommerceProductManagementSystem.Services
             _userRepository = userRepository;
             _configuration = configuration;
         }
-        public async Task<string> LoginAsync(UserLogin loginDto)
-        {
-            var user = await _userRepository.GetUserByEmailAsync(loginDto.Username);
-            if (user == null)
-                return "Invalid credentials";
 
-            return GenerateJwtToken(user);
+        //public bool IsUniqueUser(string userName)
+        //{
+        //    return _userRepository.IsUniqueUser(userName);
+        //}
+
+        public async Task<LoginResponseDTO> LoginUserAsync(UserLogin loginDto)
+        {
+            User user = null;
+
+            LoginResponseDTO loginResponseDTO = null;
+
+
+            if (!string.IsNullOrEmpty(loginDto.Username) && !string.IsNullOrEmpty(loginDto.Password))
+            {
+                user = await _userRepository.LoginUser(loginDto.Username, loginDto.Password);
+            }
+            
+            if (user == null)
+            {
+                return loginResponseDTO;
+            }
+
+            loginResponseDTO = new LoginResponseDTO
+            {
+                token = GenerateJwtToken(user),
+                Name = user.Name,
+                Role = user.Role
+            };
+
+            return loginResponseDTO;
+        }
+        public async Task<UserRegistrationDTO> RegistrationAsync(UserRegistrationDTO registrationDTO)
+        {
+            bool user = _userRepository.IsUniqueUser(registrationDTO.UserName);
+            if(!user)
+            {
+                return null;
+            }
+            User newUser = new User
+            {
+                Name = registrationDTO.Name,
+                UserName = registrationDTO.UserName,
+                Password = registrationDTO.Password,
+                Role = registrationDTO.Role
+            };
+            await _userRepository.Registration(newUser);
+
+            return new UserRegistrationDTO
+            {
+                UserName = newUser.UserName,
+                Name = newUser.UserName,
+                Role = newUser.Role
+            };
         }
 
         private string GenerateJwtToken(User user)
@@ -34,15 +81,16 @@ namespace E_CommerceProductManagementSystem.Services
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.Name, user.Username),        
-        new Claim(ClaimTypes.Role, user.Role)  // Adding role to claims
-    };
+            {
+                new Claim(ClaimTypes.Name, user.UserName),        
+                new Claim(ClaimTypes.Role, user.Role)  // Adding role to claims
+            };
 
             var token = new JwtSecurityToken(
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
                 claims,
+
                 expires: DateTime.UtcNow.AddHours(2),
                         signingCredentials: creds
             );

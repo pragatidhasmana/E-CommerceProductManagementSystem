@@ -5,12 +5,15 @@ import { Category } from "../../Data/Models/Category";
 import { Product } from "../../Data/Models/Product";
 import { toast } from "react-toastify";
 import { imageFileServer } from "../../Data/Constant";
+import { GetToken } from "../../Data/GetToken";
 //import { imageFileServer } from "../../Data/Constant";
 
 
 const ProductEdit = () => {
 
   const POST_API = "http://localhost:5035/api/Products";
+
+  const token = GetToken();
 
   const [catgories, setCategories] = useState<Category[]>([]);
   const [categoryId, setCategoryId] = useState(0);
@@ -79,9 +82,9 @@ const ProductEdit = () => {
       const res = await fetch(`${POST_API}/${id}`, {
         method: "PUT",
         body: formData, //JSON.stringify(product)  ,
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        // }
+        headers: {
+            'Authorization' : `Bearer ${token}`
+        }
       });
 
       console.log(res);

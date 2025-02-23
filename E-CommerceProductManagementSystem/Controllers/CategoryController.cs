@@ -13,10 +13,12 @@ namespace E_CommerceProductManagementSystem.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService,IProductService productService)
         {
             _categoryService = categoryService;
+            _productService = productService;
         }
 
         [HttpGet]
@@ -52,6 +54,11 @@ namespace E_CommerceProductManagementSystem.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
+            var product = await _productService.GetProductByCategoryId(id);
+            if (product != null)
+            {
+                return BadRequest("Category Cannot be Deleted. Product Available");
+            }
             var result = await _categoryService.DeleteCategory(id);
             if (!result) return NotFound();
             return NoContent();

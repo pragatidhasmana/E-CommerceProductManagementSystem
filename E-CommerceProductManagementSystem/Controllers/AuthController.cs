@@ -23,11 +23,25 @@ namespace E_CommerceProductManagementSystem.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLogin loginDto)
         {
-            var token = await _authService.LoginAsync(loginDto);
-            if (token == "Invalid credentials")
-                return Unauthorized(new { message = token });
+            var response = await _authService.LoginUserAsync(loginDto);
 
-            return Ok(new { token });
+            if (response == null)
+            {
+                return Unauthorized(new { message = "Invalid Credentials" });
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost("registration")]
+        public async Task<IActionResult> Registration([FromBody] UserRegistrationDTO registrationDTO)
+        {
+            var newUser = await _authService.RegistrationAsync(registrationDTO);
+            if(newUser == null)
+            {
+                return BadRequest("UserName already exists");
+            }
+            return Ok(newUser);
         }
     }
 }

@@ -5,6 +5,7 @@ import { Product } from "../../Data/Models/Product";
 
 const ProductIndex = () => {
 
+    
     const[product,setProduct]=useState<Product[]>([]);
     
       const getPostData= async ()=>{
@@ -12,6 +13,7 @@ const ProductIndex = () => {
         console.log(res.data);
         setProduct(res.data);
       }
+  
      
       useEffect(()=>{
         getPostData();

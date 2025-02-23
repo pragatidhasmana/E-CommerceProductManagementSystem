@@ -10,6 +10,8 @@ const Create = () => {
 
     const POST_API = 'http://localhost:5035/api/Category'
 
+    const token = JSON.parse(localStorage.getItem("jwtToken"));
+
     const navigate = useNavigate();
 
     const [category, setCategory] = useState({  name: ''});
@@ -45,7 +47,8 @@ const Create = () => {
         const data = await axios.post(POST_API,
             document.querySelector('#add-form'),{
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
                 }
             });
         console.log(data);

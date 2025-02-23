@@ -31,8 +31,8 @@ namespace E_CommerceProductManagementSystem.Data
             );
             // Seed Products
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "Admin", Password = "password@123", Role = "Admin" },
-                new User { Id = 2, Username = "User", Password = "password@123", Role = "User" }
+                new User { Id = 1,Name="Admin User", UserName = "Admin", Password = "password@123", Role = "Admin" },
+                new User { Id = 2, Name = "Customer", UserName = "User", Password = "password@123", Role = "User" }
             );
 
         }

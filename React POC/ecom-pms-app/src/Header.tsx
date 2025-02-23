@@ -1,6 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { IsAuthorize } from "./Data/Authorize";
 
 const Header = () => {
+
+  //const isAuthenticated = IsAuthorize();
+  const navigate =useNavigate();
+  // console.log(isAuthenticated);
+  
+// useEffect(()=>{
+//  // setName(GetLoggedInUserName());
+// },[isAuthenticated])
+
+
+console.log(IsAuthorize());
+
+  const handleLogout = () =>{
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("LoggedInUserName");
+    localStorage.removeItem("LoggedInUserRole");
+    navigate("/login", { replace: true })
+    }
+
   return (
     <header>
       <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
@@ -64,7 +85,24 @@ const Header = () => {
                   </a>
                 </li> */}
             </ul>
-            {/* <partial name="_LoginLogout" /> */}
+            <ul className="navbar-nav justify-content-end">
+              <li className="nav-item">
+                  {(IsAuthorize() && (
+                    <div>
+                    {/* <span className='navbar-brand opacity-75 pt-0 mt-0'><small>Welcome {GetLoggedInUserName()}</small></span> */}
+                    <a
+                        className='navbar-brand'
+                        onClick={handleLogout}
+                        ><i className="bi bi-box-arrow-in-right"></i></a>
+                    </div>
+                    
+                )) || ( <Link to = '/login'
+                className='navbar-brand'
+                ><i className="bi bi-box-arrow-in-left"></i></Link>)
+                } 
+              </li>
+            </ul>
+            
           </div>
         </div>
       </nav>

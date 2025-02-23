@@ -3,10 +3,13 @@ import { Category } from "../../Data/Models/Category";
 import { useEffect, useState } from "react";
 import { getCategories } from "../../Data/APIs/API";
 import { toast } from "react-toastify";
+import { GetToken } from "../../Data/GetToken";
 
 const ProductCreate = () => {
 
   const POST_API = 'http://localhost:5035/api/Products'
+
+  const token = GetToken();
   
   const navigate = useNavigate();
 
@@ -56,10 +59,10 @@ const ProductCreate = () => {
           //console.log(JSON.stringify(product) );
           const res = await fetch(POST_API,{
               method:"POST",
-              body:formData//JSON.stringify(product)  ,   
-            //   headers: {
-            //     'Content-Type': 'application/json',
-            // }   
+              body:formData,//JSON.stringify(product)  ,   
+             headers: {
+                'Authorization' : `Bearer ${token}`
+             }   
             })
 
              console.log(res)
