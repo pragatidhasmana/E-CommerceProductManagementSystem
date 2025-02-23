@@ -1,5 +1,4 @@
 ﻿using E_CommerceProductManagementSystem.DTO;
-using E_CommerceProductManagementSystem.Models;
 
 namespace E_CommerceProductManagementSystem.Services
 {

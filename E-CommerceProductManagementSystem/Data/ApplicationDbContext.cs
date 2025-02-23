@@ -29,7 +29,8 @@ namespace E_CommerceProductManagementSystem.Data
                 new Product { ProductId = 3, Name = "Novel", Description = "Novel Fiction", Price = 19.99m, Stock = 15, CategoryId = 2 },
                 new Product { ProductId = 4, Name = "T-Shirts", Description = "T-Shirts", Price = 200m, Stock = 45, CategoryId = 3 }
             );
-            // Seed Products
+
+            // Seed Users
             modelBuilder.Entity<User>().HasData(
                 new User { Id = 1,Name="Admin User", UserName = "Admin", Password = "password@123", Role = "Admin" },
                 new User { Id = 2, Name = "Customer", UserName = "User", Password = "password@123", Role = "User" }

@@ -1,7 +1,6 @@
 ﻿using E_CommerceProductManagementSystem.DTO;
 using E_CommerceProductManagementSystem.Models;
 using E_CommerceProductManagementSystem.Repositories;
-using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,18 +18,12 @@ namespace E_CommerceProductManagementSystem.Services
             _userRepository = userRepository;
             _configuration = configuration;
         }
-
-        //public bool IsUniqueUser(string userName)
-        //{
-        //    return _userRepository.IsUniqueUser(userName);
-        //}
-
+        
         public async Task<LoginResponseDTO> LoginUserAsync(UserLogin loginDto)
         {
             User user = null;
 
             LoginResponseDTO loginResponseDTO = null;
-
 
             if (!string.IsNullOrEmpty(loginDto.Username) && !string.IsNullOrEmpty(loginDto.Password))
             {
