@@ -28,35 +28,16 @@ const ProductCreate = () => {
       getPostData();
     },[])
 
-    // const handleCategoryChange = (event) =>{
-    //   const selectedCategoryId = event.target.value;
-    //   const selected = ctgory.find(c=>c.id===parseInt(selectedCategoryId));
-    //   //setSelectedCategory(selected);
-    //   }
+    
 
       const handleSubmit = async (event) => {
         event.preventDefault();
-        const formData=new FormData(event.target)
-        //console.log(formData);
+        const formData=new FormData(event.target)      
         
-        //formData.append("imgURL", `C:\\image\\${Object.fromEntries(formData.entries()).imageURL.name}`);
-        //formData.delete('imageURL')
-        //console.log(Object.fromEntries(formData.entries()).imageURL.name)
-        //const product = Object.fromEntries(formData.entries())
-       
-        //formData.delete('imageURL')
-        
-
-        //
-        
-        //console.log(product.imgURL.name)
-         /* Validate Form Fields 
-        if()
-          */ 
         
       
         try {
-          //console.log(JSON.stringify(product) );
+          
           const res = await fetch(POST_API,{
               method:"POST",
               body:formData,//JSON.stringify(product)  ,   
@@ -66,10 +47,10 @@ const ProductCreate = () => {
             })
 
              console.log(res)
-            //const data=await res.json() 
+            
 
             if(res.ok){
-              //console.log(product);
+              
               //product Created correctly
               notify();
               navigate("/product/index", { replace: true }) 
@@ -85,9 +66,8 @@ const ProductCreate = () => {
           
          catch (error) {
           alert(`unable connect to server - ${error}`)
-        }
-      
-       // console.log(product);
+        }      
+       
       }
 
     const notify = () => {
@@ -118,8 +98,8 @@ const ProductCreate = () => {
                       name="name"
                       className="form-control border-0 shadow"
                       placeholder="Enter Product Name"
-                      // onChange={(event)=>handleChangeuUserField("name",event.target.value)}
-                      // value={product.name}
+                      
+                      
                     />
                     <label className="ms-2">Name</label>
                   </div>
@@ -129,8 +109,8 @@ const ProductCreate = () => {
                       name="description"
                       className="form-control border-0 shadow"
                       placeholder="Enter Product Description"
-                      // onChange={(event)=>handleChangeuUserField("description",event.target.value)}
-                      // value={product.description}
+                      
+                      
                     ></textarea>
                     <label
                       className="ms-2"
@@ -142,8 +122,8 @@ const ProductCreate = () => {
                       name="price"
                       className="form-control border-0 shadow"
                       placeholder="Enter Price"
-                      // onChange={(event)=>handleChangeuUserField("price",event.target.value)}
-                      // value={product.price}
+                      
+                      
                     />
                     <label className="ms-2" >Price</label>
                   </div>
@@ -153,8 +133,8 @@ const ProductCreate = () => {
                       name="stock"
                       className="form-control border-0 shadow"
                       placeholder="Enter Stocks"
-                      // onChange={(event)=>handleChangeuUserField("stock",event.target.value)}
-                      // value={product.stock}
+                      
+                      
                     />
                     <label
                       className="ms-2"
@@ -166,15 +146,15 @@ const ProductCreate = () => {
                       type="file"
                       name="file"
                       className="form-control border-0 shadow"
-                      // onChange={handleimageChange}
-                      // value={product.imgURL}
+                      
+                      
                     />
                      <label className="ms-2">Upload File</label>
                   </div>
                   <div className="form-floating py-2 col-12">
                     <select
                       className="form-select border-0 shadow"
-                     // onChange={handleCategoryChange}
+                     
                       name ="categoryId"
                       defaultValue={"0"}
                     >
@@ -194,7 +174,7 @@ const ProductCreate = () => {
 
                         <button
                           className="btn btn-primary form-control"
-                          //onClick={AddProduct}
+                          
                           type="submit"
                         >
                           Create
@@ -212,13 +192,7 @@ const ProductCreate = () => {
                   </div>
                 </div>
               </div>
-              {/* <div className="col-2">
-                <img
-                  src="@Model.Product.ImageUrl"
-                  width="100%"
-                 // style="border-radius:5px;border:1px solid #bbb9b9"
-                />
-              </div> */}
+              {}
             </div>
           </form>
         </div>

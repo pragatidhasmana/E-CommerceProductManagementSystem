@@ -42,8 +42,8 @@ const Login = () => {
                     <div className="form-floating py-2 col-12">
                         <input name="UserName" type="text"
                         className="form-control border-0 shadow"
-                        placeholder="Enter User Name" 
-                        //value={category.name}
+                        placeholder="Enter User Name"
+                        
                         onChange={(event)=>setUsername(event.target.value)}
                         />
                         <label className="ms-2">UserName</label>
@@ -52,7 +52,7 @@ const Login = () => {
                         <input name="Password" type="password"
                         className="form-control border-0 shadow"
                         placeholder="Enter Password" 
-                        //value={category.name}
+                        
                         onChange={(event)=>(setPassword(event.target.value))}
                         />
                         <label className="ms-2">Password</label>
@@ -61,7 +61,7 @@ const Login = () => {
                         <div className="col-12 col-md-6  mx-auto">
                             <button onClick={handleSubmit}
                                 className="btn btn-primary form-control"
-                                //onClick={AddCategory }
+                                
                             >
                                 Continue
                             </button>  

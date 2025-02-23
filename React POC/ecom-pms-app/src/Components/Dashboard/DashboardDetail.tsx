@@ -24,8 +24,7 @@ const DashboardDetail = () => {
         setProduct(res.data);
         console.log(res.data);     
     }
-    //console.log(product);
-    
+       
 
     useEffect (() =>{
         getProductFromDB()
@@ -103,45 +102,6 @@ const DashboardDetail = () => {
                   </h6>
                 </div>
 {/*                 
-                <div className="row text-center ps-2">
-                  <div className="p-1 col-3 col-lg-2 bg-white border-bottom">
-                    <div className="text-dark text-opacity-50 fw-semibold">
-                      Quantity
-                    </div>
-                  </div>
-                  <div className="p-1 col-3 col-lg-2 bg-white border-bottom">
-                    <div className="text-dark text-opacity-50 fw-semibold">
-                      1-50
-                    </div>
-                  </div>
-                  <div className="p-1 col-3 col-lg-2 bg-white border-bottom">
-                    <div className="text-dark text-opacity-50 fw-semibold">
-                      51-100
-                    </div>
-                  </div>
-                  <div className="p-1 col-3 col-lg-2 bg-white border-bottom">
-                    <div className="text-dark text-opacity-50 fw-semibold">
-                      100+
-                    </div>
-                  </div>
-                </div>
-                <div className="row text-center ps-2">
-                  <div className="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                    <div>Price</div>
-                  </div>
-                  <div className="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                    <div>Price</div>
-                  </div>
-                  <div className="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                    <div>Price50</div>
-                  </div>
-                  <div className="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                    <div>Price100</div>
-                  </div>
-                </div>{" "}
-                
-                <div className="row pl-2 my-3">
-                  <p className="text-secondary lh-sm">Description</p>
                  */}
                 <div className="row pl-2 mb-3">
                   <div className="col-md-4">

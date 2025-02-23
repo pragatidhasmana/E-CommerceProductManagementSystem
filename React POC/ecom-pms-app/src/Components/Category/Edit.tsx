@@ -19,10 +19,8 @@ const Edit = () => {
                 ...prevInput,
                 [inputIdentifier]: newValue
             }
-        });
-
-        // const { name, value } = e.target;
-        // console.log(name, value);
+        });        
+        
     }
     
     const notify = () => {
@@ -32,7 +30,7 @@ const Edit = () => {
 
     const UpdateCategory = async (e:React.FormEvent) =>{
         e.preventDefault()
-        //console.log(ctgory)
+        
         const res = await updateCategoryById(id,ctgory)
         console.log(res);
 

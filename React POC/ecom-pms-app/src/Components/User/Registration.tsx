@@ -20,8 +20,8 @@ const Registration = () => {
          })
 
          if(res.ok){
-            //console.log(product);
-            //product Created correctly
+            
+            
             navigate("/login", { replace: true }) 
           }
           else if(res.status===400)
@@ -50,18 +50,16 @@ const Registration = () => {
                 <div className="form-floating py-2 col-12">
                         <input name="Name" type="text"
                         className="form-control border-0 shadow"
-                        placeholder="Enter Name" 
-                        //value={category.name}
-                        //onChange={(event)=>handleChange("name",event?.target.value)}
+                        placeholder="Enter Name"                        
+                        
                         />
                         <label className="ms-2">Name</label>
                     </div>
                     <div className="form-floating py-2 col-12">
                         <input name="UserName" type="text"
                         className="form-control border-0 shadow"
-                        placeholder="Enter User Name" 
-                        //value={category.name}
-                        //onChange={(event)=>handleChange("name",event?.target.value)}
+                        placeholder="Enter User Name"                         
+                        
                         />
                         <label className="ms-2">UserName</label>
                     </div>
@@ -69,15 +67,15 @@ const Registration = () => {
                         <input name="Password" type="password"
                         className="form-control border-0 shadow"
                         placeholder="Enter Password" 
-                        //value={category.name}
-                        //onChange={(event)=>handleChange("name",event?.target.value)}
+                        
+                        
                         />
                         <label className="ms-2">Password</label>
                     </div>
                     <div className="form-floating py-2 col-12">
                         <select
                         className="form-select border-0 shadow"
-                        // onChange={handleCategoryChange}
+                        
                         name ="Role"
                         >
                             <option value="">--Select Role--</option>
@@ -90,7 +88,7 @@ const Registration = () => {
                         <div className="col-12 col-md-6  mx-auto">
                             <button
                                 className="btn btn-primary form-control"
-                                //onClick={AddCategory }
+                                
                             >
                                 Continue
                             </button>  

@@ -15,7 +15,7 @@ const ProductDelete = () => {
     const res = await getProductById(id)
     setProduct(res.data);
   }
-  //console.log(product)
+  
 
   useEffect(()=>{
     getProductFromDB();
