@@ -5,6 +5,8 @@ import { loginUser } from "../../Data/APIs/API";
 const Login = () => {
     const[username,setUsername]=useState("");
     const[password,setPassword]=useState("");
+    const[errors,setErrors]=useState({});
+    const[res,setRes]=useState("");
 
     const navigate = useNavigate();
 
@@ -13,20 +15,54 @@ const Login = () => {
             UserName:username,
             Password:password
         }
-        loginUser(payload)
-        .then((res)=>{
-            localStorage.setItem("jwtToken",JSON.stringify(res.data.token))
-            localStorage.setItem("LoggedInUserName",JSON.stringify(res.data.name))
-            localStorage.setItem("LoggedInUserRole",JSON.stringify(res.data.role))
-           // console.log("Login Success",res)    
-            navigate("/", { replace: true })         
-        })
-        .catch((err)=>{
-            console.log("Login Falied",err);  
+        const newErrors = validateData(payload)
+        setErrors(newErrors);
+
+        if(Object.keys(newErrors).length === 0)
+        {
+            console.log('Form submitted successfully!');
+            loginUser(payload)
+              .then((res) => {
+                localStorage.setItem(
+                  "jwtToken",
+                  JSON.stringify(res.data.token)
+                );
+                localStorage.setItem(
+                  "LoggedInUserName",
+                  JSON.stringify(res.data.name)
+                );
+                localStorage.setItem(
+                  "LoggedInUserRole",
+                  JSON.stringify(res.data.role)
+                );
+                // console.log("Login Success",res)
+                navigate("/", { replace: true });
+              })
+              .catch((err) => {
+                console.log("Login Falied", err);
+                setRes("Invalid Username or Password");
+              });
         }
-    )
-           
+        else{
+            console.log('Form submission failed due to validation errors.');
+        }                 
     }
+
+    const validateData = (data) =>{
+        const errors = {};
+
+        if(!data.UserName.trim())
+        {
+            errors.UserName = "UserName is required field."
+        }
+
+        if(!data.Password.trim())
+        {
+            errors.Password = "Password is required field."
+        }
+        return errors;
+    }
+
     return(
     <>
     <div className="shadow border-0 mt-4 mx-auto col-8">
@@ -47,6 +83,11 @@ const Login = () => {
                         onChange={(event)=>setUsername(event.target.value)}
                         />
                         <label className="ms-2">UserName</label>
+                        {
+                            errors.UserName && (
+                                <span className="text-danger">{errors.UserName}</span>
+                            )
+                        }
                     </div>
                     <div className="form-floating py-2 col-12">
                         <input name="Password" type="password"
@@ -56,6 +97,11 @@ const Login = () => {
                         onChange={(event)=>(setPassword(event.target.value))}
                         />
                         <label className="ms-2">Password</label>
+                        {
+                            errors.Password && (
+                                <span className="text-danger">{errors.Password}</span>
+                            )
+                        }
                     </div>
                     <div className="row pt-2">
                         <div className="col-12 col-md-6  mx-auto">
@@ -66,6 +112,11 @@ const Login = () => {
                                 Continue
                             </button>  
                         </div>
+                        {
+                            res && (
+                                <span className="text-danger pt-2 text-center">{res}</span>
+                            )
+                        }
                     </div>
                     <div className="row pt-2">
                         <div className="col-12 col-md-3 mx-auto">
