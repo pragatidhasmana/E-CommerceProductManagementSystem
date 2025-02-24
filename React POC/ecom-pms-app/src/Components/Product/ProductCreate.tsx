@@ -32,7 +32,7 @@ const ProductCreate = () => {
         event.preventDefault();
         const formData=new FormData(event.target) 
         
-        console.log(Object.fromEntries(formData.entries()))
+        //console.log(Object.fromEntries(formData.entries()))
         
         const newErrors = ValidateFormData(Object.fromEntries(formData.entries()));
         setErrors(newErrors);
