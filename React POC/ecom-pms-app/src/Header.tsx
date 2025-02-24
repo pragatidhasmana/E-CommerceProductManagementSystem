@@ -65,12 +65,12 @@ console.log(IsAuthorize());
                     <a
                         className='navbar-brand'
                         onClick={handleLogout}
-                        ><i className="bi bi-box-arrow-in-right"></i></a>
+                        ><i className="bi bi-box-arrow-in-right" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"></i></a>
                     </div>
                     
                 )) || ( <Link to = '/login'
-                className='navbar-brand'
-                ><i className="bi bi-box-arrow-in-left"></i></Link>)
+                className='navbar-brand' 
+                ><i className="bi bi-box-arrow-in-left"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login"></i></Link>)
                 } 
               </li>
             </ul>
