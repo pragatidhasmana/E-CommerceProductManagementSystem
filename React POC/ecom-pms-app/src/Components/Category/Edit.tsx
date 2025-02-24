@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 
 const Edit = () => {
 
+    const [errors, setErrors] = useState({});
+
     const navigate = useNavigate();
 
     const[ctgory,setCategory]=useState({ name: "", id: 0 });
@@ -30,12 +32,22 @@ const Edit = () => {
 
     const UpdateCategory = async (e:React.FormEvent) =>{
         e.preventDefault()
+        const newErrors = validateForm(ctgory);
+        setErrors(newErrors);
         
-        const res = await updateCategoryById(id,ctgory)
-        console.log(res);
+        if (Object.keys(newErrors).length === 0) {
+          // Form submission logic here
+          console.log("Form submitted successfully!");
+          const res = await updateCategoryById(id,ctgory)
+          console.log(res);
 
          notify();
-         navigate("/category/index", { replace: true })      
+         navigate("/category/index", { replace: true })   
+          
+        } else {
+          console.log("Form submission failed due to validation errors.");
+        }
+       
     }
   
       const getData= async ()=>{
@@ -49,6 +61,23 @@ const Edit = () => {
       useEffect(()=>{
         getData();
       },[])
+
+      const validateForm = (data) =>
+        {
+    
+          console.log(data);
+          
+          const errors = {};
+              if (!data.name.trim()) 
+              {
+                errors.name = "Category Name is a required field.";
+              } 
+              else if (data.name.length >= 100) 
+              {
+                errors.name = "Category Name must be less than or equal to 100 characters.";
+              }
+              return errors
+        }
 
 
   return (
@@ -84,6 +113,11 @@ const Edit = () => {
                   
                 />
                 <label className="ms-2">Name</label>
+                {errors.name && (
+                        <span className="text-danger">
+                            {errors.name}
+                        </span>
+                    )}
               </div>
               
               <div className="row pt-2">
