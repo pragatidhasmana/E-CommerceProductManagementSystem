@@ -74,7 +74,7 @@ const Delete = () => {
               <div className="row pt-2">
                 <div className="col-6 col-md-3">
                   <button className="btn btn-danger form-control" onClick={DeleteCategory}>
-                    Delete
+                  Confirm Delete
                   </button>
                 </div>
                 <div className="col-6 col-md-3">

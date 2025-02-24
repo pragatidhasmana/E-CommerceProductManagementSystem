@@ -18,6 +18,7 @@ const ProductEdit = () => {
   const [catgories, setCategories] = useState<Category[]>([]);
   const [categoryId, setCategoryId] = useState(0);
   const [product, setProduct] = useState<Product>();
+  const [errors, setErrors] = useState({});
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -61,36 +62,94 @@ const ProductEdit = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    
-    try {
-      //console.log(JSON.stringify(product) );
-      const res = await fetch(`${POST_API}/${id}`, {
-        method: "PUT",
-        body: formData, //JSON.stringify(product)  ,
-        headers: {
-            'Authorization' : `Bearer ${token}`
+
+    const newErrors = ValidateFormData(Object.fromEntries(formData.entries()));
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      // Form submission logic here
+      console.log("Form submitted successfully!");
+      try {
+        //console.log(JSON.stringify(product) );
+        const res = await fetch(`${POST_API}/${id}`, {
+          method: "PUT",
+          body: formData, //JSON.stringify(product)  ,
+          headers: {
+              'Authorization' : `Bearer ${token}`
+          }
+        });
+  
+        console.log(res);
+        //const data=await res.json()
+  
+        if (res.ok) {
+          console.log("Updated");
+  
+          notify();
+          navigate("/product/index", { replace: true });
+        } else if (res.status === 400) {
+          //validation error
+        } else {
+          //unable to create product
         }
-      });
-
-      console.log(res);
-      //const data=await res.json()
-
-      if (res.ok) {
-        console.log("Updated");
-
-        notify();
-        navigate("/product/index", { replace: true });
-      } else if (res.status === 400) {
-        //validation error
-      } else {
-        //unable to create product
+      } catch (error) {
+        alert(`unable connect to server - ${error}`);
       }
-    } catch (error) {
-      alert(`unable connect to server - ${error}`);
-    }
 
-    // console.log(product);
+    } else {
+      console.log("Form submission failed due to validation errors.");
+    }
+  // console.log(product);
   };
+
+    const ValidateFormData = (data) => {
+      const errors = {};
+      const e = document.getElementById("ddlCategory");
+      //console.log(e);
+      
+      if(!data.name.trim())
+      {
+        errors.name = "Product Name is a required field."
+      }
+      else if(data.name.length > 200 )
+      {
+        errors.name = "Product Name must be less than or equal to 200 characters.."
+      }
+
+      if(!data.description.trim())
+      {
+        errors.description = "Product Description is a required field."
+      }
+
+      if(!data.price.trim())
+      {
+        errors.price = "Product Price is a required field."
+      }
+      else if(data.price < 0)
+      {
+        errors.price = "Product Price cannot be a negative value."
+      }
+      
+      if(!data.stock.trim())
+      {
+        errors.stock = "Product Stocks is a required field."
+      }
+      else if(data.stock < 0)
+      {
+        errors.stock = "Product Stocks cannot be a negative value."
+      }
+
+      // if(!data.file.name.trim())
+      // {
+      //   errors.file = "Please Upload Product Image."
+      // }
+
+      if(e.options[e.selectedIndex].value === "0")
+      {
+        errors.categoryId = "Please Select Category"
+      }
+    return errors;
+  }
 
 
     return (
@@ -120,6 +179,11 @@ const ProductEdit = () => {
                         onChange={(event)=>handleChange("name",event?.target.value)}
                       />
                       <label className="ms-2">Name</label>
+                      {
+                        errors.name && (
+                          <span className="text-danger">{errors.name}</span>
+                        )
+                      }
                     </div>
   
                     <div className="form-floating py-2 col-12">
@@ -133,6 +197,11 @@ const ProductEdit = () => {
                       <label
                         className="ms-2"
                       >Description</label>
+                      {
+                        errors.description && (
+                          <span className="text-danger">{errors.description}</span>
+                        )
+                      }
                     </div>
                     <div className="form-floating py-2 col-12">
                       <input
@@ -143,6 +212,11 @@ const ProductEdit = () => {
                         onChange={(event)=>handleChange("price",event?.target.value)}
                       />
                       <label className="ms-2" >Price</label>
+                      {
+                        errors.price && (
+                          <span className="text-danger">{errors.price}</span>
+                        )
+                      }
                     </div>
                     <div className="form-floating py-2 col-12">
                       <input
@@ -155,6 +229,11 @@ const ProductEdit = () => {
                       <label
                         className="ms-2"
                       >Stock Quantity</label>
+                      {
+                        errors.stock && (
+                          <span className="text-danger">{errors.stock}</span>
+                        )
+                      }
                     </div>
                     
                     <div className="form-floating py-2 col-12">
@@ -164,9 +243,14 @@ const ProductEdit = () => {
                         className="form-control border-0 shadow"
                       />
                       <label className="ms-2">Upload File</label>
+                      {/* {
+                        errors.file && (
+                          <span className="text-danger">{errors.file}</span>
+                        )
+                      } */}
                     </div>
                     <div className="form-floating py-2 col-12">
-                    <select
+                    <select id = "ddlCategory"
                       className="form-select border-0 shadow"
                      onChange={handleCategoryChange}
                       name ="categoryId"
@@ -183,6 +267,11 @@ const ProductEdit = () => {
                     <label
                       className="ms-2"
                     >Category</label>
+                    {
+                        errors.categoryId && (
+                          <span className="text-danger">{errors.categoryId}</span>
+                        )
+                      }
                   </div>
                       
                     <div className="row pt-2">

@@ -99,7 +99,7 @@ const ProductDelete = () => {
                     className="btn btn-primary form-control"
                     type="submit"
                   >
-                    Delete
+                    Confirm Delete
                   </button>
                 </div>
                 <div className="col-6 col-md-3">

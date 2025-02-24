@@ -69,7 +69,7 @@ const Create = () => {
           {
             errors.name = "Category Name is a required field.";
           } 
-          else if (data.name.length >= 100) 
+          else if (data.name.length > 100) 
           {
             errors.name = "Category Name must be less than or equal to 100 characters.";
           }
