@@ -27,23 +27,11 @@ const Create = () => {
     }
 
     const notify = () => {
-        // Calling toast method by passing string
         toast.success("Category Added Successfully!"); 
     };
-
-    // const AddCategoryData= async ()=>{
-    //     await postCategories();
-    //     // if(res.status===201)
-    //     // {
-    //     //     notify();
-    //     //     navigate("/category/index", { replace: true }) 
-    //     // }
-    // }
-    
+  
     const AddCategory = async (e: React.FormEvent) => {
         e.preventDefault();
-        //console.log("Hi")
-        //AddCategoryData()
         const data = await axios.post(POST_API,
             document.querySelector('#add-form'),{
                 headers:{

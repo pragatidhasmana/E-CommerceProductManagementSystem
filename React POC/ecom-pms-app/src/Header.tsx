@@ -4,14 +4,7 @@ import { IsAuthorize } from "./Data/Authorize";
 
 const Header = () => {
 
-  //const isAuthenticated = IsAuthorize();
-  const navigate =useNavigate();
-  // console.log(isAuthenticated);
-  
-// useEffect(()=>{
-//  // setName(GetLoggedInUserName());
-// },[isAuthenticated])
-
+const navigate =useNavigate();
 
 console.log(IsAuthorize());
 
@@ -74,22 +67,11 @@ console.log(IsAuthorize());
                   </li>
                 </ul>
               </li>
-              {/* <li className="nav-item">
-                  <a
-                    className="nav-link "
-                    asp-area="Customer"
-                    asp-controller="Cart"
-                    asp-action="Index"
-                  >
-                    <i className="bi bi-cart"></i> &nbsp; (0)
-                  </a>
-                </li> */}
             </ul>
             <ul className="navbar-nav justify-content-end">
               <li className="nav-item">
                   {(IsAuthorize() && (
                     <div>
-                    {/* <span className='navbar-brand opacity-75 pt-0 mt-0'><small>Welcome {GetLoggedInUserName()}</small></span> */}
                     <a
                         className='navbar-brand'
                         onClick={handleLogout}

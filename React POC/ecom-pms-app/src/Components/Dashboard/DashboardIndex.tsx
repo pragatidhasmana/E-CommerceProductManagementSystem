@@ -32,15 +32,11 @@ const DashboardIndex = () => {
                   <p className="card-title h10 text-dark opacity-75 text-uppercase text-center">
                     {currElement.name}
                   </p>
-                  {/* <p className="card-title text-warning text-center">
-                    by @product.ManufacturedBy <b></b>
-                  </p> */}
                 </div>
                 <div className="pl-1">
                   <p className="text-dark opacity-100 text-center mb-0">
                     <span>
                       <strong className="h5">
-                        {/* @product.DiscountedPrice.ToString("c"){" "} */}
                         &#8377;{currElement.price}
                       </strong>
                     </span>

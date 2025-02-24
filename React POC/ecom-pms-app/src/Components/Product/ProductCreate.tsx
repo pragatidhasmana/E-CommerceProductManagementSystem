@@ -15,13 +15,9 @@ const ProductCreate = () => {
 
   const[ctgory,setCategory]=useState<Category[]>([]);
   
-  //const[selectedCategory , setSelectedCategory]=useState([{'name':"",'id':""}]);
- 
     const getPostData= async ()=>{
       const res = await getCategories();
       setCategory(res.data);
-      //console.log(res.data[0]);
-      //setSelectedCategory(res.data[0]);
     }
   
     useEffect(()=>{

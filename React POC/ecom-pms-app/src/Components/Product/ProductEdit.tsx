@@ -61,22 +61,7 @@ const ProductEdit = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    //console.log(formData);
-
-    //formData.append("imgURL", `C:\\image\\${Object.fromEntries(formData.entries()).imageURL.name}`);
-    //formData.delete('imageURL')
-    //console.log(Object.fromEntries(formData.entries()).imageURL.name)
-    //const product = Object.fromEntries(formData.entries())
-
-    //formData.delete('imageURL')
-
-    //
-
-    //console.log(product.imgURL.name)
-    /* Validate Form Fields 
-    if()
-      */
-
+    
     try {
       //console.log(JSON.stringify(product) );
       const res = await fetch(`${POST_API}/${id}`, {
@@ -93,8 +78,6 @@ const ProductEdit = () => {
       if (res.ok) {
         console.log("Updated");
 
-        //console.log(product);
-        //product Created correctly
         notify();
         navigate("/product/index", { replace: true });
       } else if (res.status === 400) {

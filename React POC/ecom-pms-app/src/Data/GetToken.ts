@@ -11,12 +11,6 @@ export const GetLoggedInUserRole = () => {
     return JSON.parse(localStorage.getItem("LoggedInUserRole"));
 }
 
-// export const DecodeToken = () =>{
-//     const arrayToken = GetToken().split('.');
-//     console.log(jwtDecode(GetToken()));
-//     console.log(jwtDecode(GetToken()).iss);
-//     //console.log(JSON.parse(atob(arrayToken[1])));
-    
 
 
 

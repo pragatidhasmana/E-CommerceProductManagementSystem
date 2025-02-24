@@ -1,18 +1,11 @@
-import { useEffect } from "react";
 import {  useNavigate } from "react-router-dom";
 import { IsAuthorize } from "./Data/Authorize";
 import { GetLoggedInUserName, GetLoggedInUserRole } from "./Data/GetToken";
 
 const Welcome = () => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const navigate = useNavigate();
-     //const isAuthenticated = IsAuthorize();    
-
-    //  useEffect(()=>{
-    //     console.log(isAuthenticated);
-    //  },[isAuthenticated])
-
-    //console.log(IsAuthorize());
     
     return(
     <>
