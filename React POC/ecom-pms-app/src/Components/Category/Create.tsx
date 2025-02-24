@@ -9,7 +9,7 @@ import axios from "axios";
 const Create = () => {
 
     const POST_API = 'http://localhost:5035/api/Category'
-//
+
     const token = JSON.parse(localStorage.getItem("jwtToken"));
 
     const navigate = useNavigate();
