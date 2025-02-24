@@ -36,16 +36,6 @@ console.log(IsAuthorize());
               <li className="nav-item">
                 <Link to='/' className="nav-link">Home</Link>
               </li>
-              {/* <li className="nav-item">
-                  <a
-                    className="nav-link "
-                    asp-area="Admin"
-                    asp-controller="Order"
-                    asp-action="Index"
-                  >
-                    Manage Order
-                  </a>
-                </li> */}
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
